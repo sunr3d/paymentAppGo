@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ledger
+  labels:
+    app: ledger
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ledger
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: ledger
+    spec:
+      containers:
+        - name: ledger
+          image: sunr3d/ledger
+          envFrom:
+            - configMapRef:
+                name: ledger-configmap
+            - secretRef:
+                name: ledger-secret

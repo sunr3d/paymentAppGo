@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-ledger
+  labels:
+    app: mysql-ledger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-ledger
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-ledger
+    spec:
+      containers:
+        - name: mysql-ledger
+          image: mysql:latest
+          envFrom:
+            - configMapRef:
+                name: mysql-ledger-configmap
+            - secretRef:
+                name: mysql-ledger-secret
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d/init.sql
+              name: init-sql
+              readOnly: true
+          securityContext:
+            privileged: true
+      volumes:
+        - name: init-sql
+          hostPath:
+            path: /gomicro/ledger/init.sql
+            type: File

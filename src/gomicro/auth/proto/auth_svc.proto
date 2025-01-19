@@ -1,0 +1,33 @@
+// В этом файле определяется СХЕМА ProtoBuf интерфейса для gRPC
+
+// Указание версии синтаксиса ProtoBuf, используемого в этом файле
+syntax = "proto3";
+
+// Опция для указания !ПАКЕТА! Go (в текущем случае он называется pb), в который будет сгенерирован код из этого файла
+option go_package = "github.com/sunr3d/gomicro/auth/proto/pb";
+
+// Определение СЕРВИСА с именем AuthService, который будет содержать удаленные(!) методы для аутентификации
+service AuthService {
+
+  // Определение удаленного метода GetToken, который принимает объект Credentials и возвращает объект Token
+  rpc GetToken(Credentials) returns (Token) {}
+
+  // Определение удаленного метода ValidateToken, который принимает объект Token и возвращает объект User
+  rpc ValidateToken(Token) returns (User) {}
+}
+
+// Определение сообщения Token, которое содержит поле jwt (JSON Web Token)
+message Token {
+  string jwt = 1; // Поле jwt, представляющее собой строку, с номером поля 1
+}
+
+// Определение сообщения Credentials, которое содержит поля для имени пользователя и пароля
+message Credentials {
+  string userName = 1; // Поле userName, представляющее собой строку, с номером поля 1
+  string password = 2;  // Поле password, представляющее собой строку, с номером поля 2
+}
+
+// Определение сообщения User, которое содержит поле userID
+message User {
+  string userID = 1; // Поле userID, представляющее собой строку, с номером поля 1
+}

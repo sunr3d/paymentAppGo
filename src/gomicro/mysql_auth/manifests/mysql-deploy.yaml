@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-auth
+  labels:
+    app: mysql-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-auth
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-auth
+    spec:
+      containers:
+        - name: mysql-auth
+          image: mysql:latest
+          envFrom:
+            - configMapRef:
+                name: mysql-auth-configmap
+            - secretRef:
+                name: mysql-auth-secret
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d/init.sql
+              name: init-sql
+              readOnly: true
+          securityContext:
+            privileged: true
+      volumes:
+        - name: init-sql
+          hostPath:
+            path: /gomicro/auth/init.sql
+            type: File

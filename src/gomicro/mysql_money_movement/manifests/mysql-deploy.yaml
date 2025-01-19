@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-money-movement
+  labels:
+    app: mysql-money-movement
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-money-movement
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-money-movement
+    spec:
+      containers:
+        - name: mysql-money-movement
+          image: mysql:latest
+          envFrom:
+            - configMapRef:
+                name: mysql-money-movement-configmap
+            - secretRef:
+                name: mysql-money-movement-secret
+          volumeMounts:
+            - mountPath: /docker-entrypoint-initdb.d/init.sql
+              name: init-sql
+              readOnly: true
+          securityContext:
+            privileged: true
+      volumes:
+        - name: init-sql
+          hostPath:
+            path: /gomicro/money_movement/init.sql
+            type: File

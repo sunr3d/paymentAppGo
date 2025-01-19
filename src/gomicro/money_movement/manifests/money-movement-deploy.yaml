@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: money-movement
+  labels:
+    app: money-movement
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: money-movement
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: money-movement
+    spec:
+      containers:
+        - name: money-movement
+          image: sunr3d/money_movement
+          envFrom:
+            - configMapRef:
+                name: money-movement-configmap
+            - secretRef:
+                name: money-movement-secret

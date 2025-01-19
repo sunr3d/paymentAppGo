@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto"; // Специальный импорт для пустого возврата из метода
+
+option go_package = "github.com/sunr3d/gomicro/money_movement/proto/pb";
+
+service MoneyMovementService {
+  rpc Authorize(AuthorizePayload) returns (AuthorizeResponse) {}
+  rpc Capture(CapturePayload) returns (google.protobuf.Empty) {}
+}
+
+message AuthorizePayload {
+  string customerWalletUserID = 1;
+  string merchantWalletUserID = 2;
+  int64 cents = 3;
+  string currency = 4;
+}
+
+message AuthorizeResponse {
+  string pid = 1;
+}
+
+message CapturePayload {
+  string pid = 1;
+}
+
+
