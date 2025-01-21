@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	authpb "github.com/sunr3d/gomicro/auth"
 	mmpb "github.com/sunr3d/gomicro/money_movement"
 	"google.golang.org/grpc"
@@ -50,6 +51,12 @@ func main() {
 	http.HandleFunc("/login", login)
 	http.HandleFunc("/customer/payment/auth", customerPaymentAuth)
 	http.HandleFunc("/customer/payment/capture", customerPaymentCapture)
+
+	fmt.Println("listening on port 8080")
+	err = http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
 // Описание хендлера login
