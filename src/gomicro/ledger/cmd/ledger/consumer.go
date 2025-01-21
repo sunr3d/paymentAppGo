@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/IBM/sarama"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/sunr3d/gomicro/internal/ledger"
 	"log"
 	"os"

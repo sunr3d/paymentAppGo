@@ -4,13 +4,14 @@ package email
 import (
 	"fmt"
 	"net/smtp"
+	"os"
 )
 
 // Send отправляет сообщение о транзакции (orderID) клиенту target
 func Send(target string, orderID string) error {
 	// Данные отправителя
-	senderEmail := "placeholder@phmail.com" // FIXME: PLACEHOLDER
-	password := "placeholder_pw"            // FIXME: PLACEHOLDER
+	senderEmail := os.Getenv("SENDER_EMAIL")
+	password := os.Getenv("SENDER_PASSWORD")
 
 	// Данные получателя
 	recipientEmail := target
