@@ -22,7 +22,7 @@ CREATE TABLE users (
 );
 
 -- Добавляем первого юзера в таблицу "user" (id не добавляем, так как он автоматически инкрементируется)
-INSERT INTO users (user_id, password) VALUES ('example@email.com', "ExamplePassword");
+INSERT INTO users (user_id, password) VALUES ('sunr3d.coding@gmail.com', 'Test123');
 
 -- !!!В РЕАЛЬНОМ ПРОЕКТЕ ВСЕ ПАРОЛИ ДОЛЖНЫ БЫТЬ ХЕШИРОВАНЫ А НЕ ХРАНИТЬСЯ В ОТКРЫТОМ ВИДЕ!!!
 
