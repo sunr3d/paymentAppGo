@@ -353,7 +353,17 @@ func fetchTransaction(tx *sql.Tx, pid string) (transaction, error) {
 	}
 	defer stmt.Close()
 
-	err = stmt.QueryRow(pid).Scan(&t.ID, &t.pid, &t.srcUserID, &t.dstUserID, &t.srcAccountID, &t.dstAccountID, &t.srcAccountType, &t.dstAccountType, &t.finalDstMerchantWalletID, &t.amount)
+	err = stmt.QueryRow(pid).Scan(
+		&t.ID,
+		&t.pid,
+		&t.srcUserID,
+		&t.dstUserID,
+		&t.srcAccountWalletID,
+		&t.dstAccountWalletID,
+		&t.srcAccountType,
+		&t.dstAccountType,
+		&t.finalDstMerchantWalletID,
+		&t.amount)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return t, status.Error(codes.NotFound, err.Error())

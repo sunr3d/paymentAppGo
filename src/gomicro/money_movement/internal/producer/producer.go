@@ -30,8 +30,10 @@ type LedgerMsg struct {
 
 func SendCaptureMessage(pid string, userID string, amount int64) {
 	sarama.Logger = log.New(os.Stdout, "[sarama] ", log.LstdFlags)
+	config := sarama.NewConfig()
+	config.Producer.Return.Successes = true
 	// Создание синхронного продюсера (отправителя) Кафка (через библу Sarama)
-	producer, err := sarama.NewSyncProducer([]string{"my-cluster-kafka-bootstrap:9092"}, sarama.NewConfig())
+	producer, err := sarama.NewSyncProducer([]string{"my-cluster-kafka-bootstrap:9092"}, config)
 	if err != nil {
 		log.Println(err)
 		return

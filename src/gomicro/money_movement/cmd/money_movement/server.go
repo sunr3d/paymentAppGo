@@ -59,7 +59,7 @@ func main() {
 	}
 
 	// Логирование адреса сервера
-	log.Printf("server listening at %v\n", listener.Addr())
+	log.Printf("server is listening at %v\n", listener.Addr())
 
 	// Запуск gRPC сервера
 	if err := grpcServer.Serve(listener); err != nil {

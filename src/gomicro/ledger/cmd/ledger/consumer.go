@@ -132,7 +132,7 @@ func handleMessage(msg *sarama.ConsumerMessage) {
 	}
 
 	// Отправка сообщения в Леджер через функцию Insert из кастомного пакета ledger
-	err := ledger.Insert(db, ledgerMsg.OrderID, ledgerMsg.UserID, ledgerMsg.Amount, ledgerMsg.Date, ledgerMsg.Operation)
+	err := ledger.Insert(db, ledgerMsg.OrderID, ledgerMsg.UserID, ledgerMsg.Amount, ledgerMsg.Operation, ledgerMsg.Date)
 	if err != nil {
 		fmt.Println(err)
 		return
