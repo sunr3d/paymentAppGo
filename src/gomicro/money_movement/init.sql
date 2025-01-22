@@ -11,7 +11,7 @@ CREATE TABLE wallet (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, -- Уникальный идентификатор с автоинкрементом
     user_id VARCHAR(255) NOT NULL UNIQUE, -- Идентификатор пользователя
     wallet_type VARCHAR(255) NOT NULL, -- Тип кошелька (CUSTOMER/MERCHANT)
-    INDEX(user_id) -- Индексирование в таблице происходит по user_id // TODO: Пойми как работает индексация
+    INDEX(user_id) -- Индексирование в таблице происходит по user_id
 );
 
 -- Создаем таблицу счет:
@@ -40,7 +40,7 @@ CREATE TABLE transaction (
 
 -- Добавление "кошельков" продавцов и покупателей
 INSERT INTO wallet(id, user_id, wallet_type) VALUES
-    (1,'example@email.com', 'CUSTOMER'),
+    (1,'sunr3d.coding@gmail.com', 'CUSTOMER'),
     (2, 'merchant_id', 'MERCHANT');
 
 -- Добавление счета покупателей
