@@ -35,7 +35,7 @@ func main() {
 	authClient = authpb.NewAuthServiceClient(authConn)
 
 	// Создание гРПС конекшена для сервиса Транзакций
-	mmConn, err := grpc.NewClient("money_movement:7000", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	mmConn, err := grpc.NewClient("money-movement:7000", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalln(err)
 	}
